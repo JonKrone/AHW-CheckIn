@@ -1,8 +1,8 @@
-/*
-  orange: #f26722
-  teal: #1faea4
-  grey: #5f7278
-*/
+:root {
+  --orange: #f26722;
+  --teal: #1faea4;
+  --grey: #d3d3d3ba;
+}
 
 .check-in-app {
   display: grid;
@@ -72,18 +72,18 @@
 .check-in-app input {
   border: none;
   border-radius: 2px;
-  background: #d3d3d3ba;
+  background: var(--grey);
   padding: 0.75rem;
 }
 
 .error {
-  color: #f26722;
+  color: var(--orange);
   /* padding: 0.75rem; */
   /* display: none; */
 }
 
 .has-error .errorable {
-  border-left: 5px solid #f26722;
+  border-left: 5px solid var(--orange);
 }
 
 .waiver-text {
@@ -91,9 +91,9 @@
   grid-row: 5 / 7;
   height: 100%;
   width: 100%;
-  border: 2px solid #d3d3d3ba;
+  border: 2px solid var(--grey);
   border-radius: 3px;
-  background-color: #d3d3d3ba;
+  background-color: var(--grey);
   line-height: 1.25rem;
   padding: 0.6rem;
   resize: none;

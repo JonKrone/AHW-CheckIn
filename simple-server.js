@@ -7,7 +7,7 @@ const port = 3000
 app.use(express.static('./'))
 
 app.listen(port, () => {
-  console.log('Example app listening!')
+  console.log('AHW dev app listening!')
   opn(`http://127.0.0.1:${port}/src/check-in.html`)
 })
 
