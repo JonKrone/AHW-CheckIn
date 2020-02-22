@@ -114,12 +114,9 @@ function resetForm() {
   $('.name-error').hidden = true
 }
 
-// run all validations, accumulate a sum isValid
+// run all validations, accumulate an aggregate isValid
 function validateFields() {
-  let isValid = validateName()
-  isValid = validateEmail() && isValid
-  isValid = validateWaiver() && isValid
-  return isValid
+  return validateName() && validateEmail() && validateWaiver()
 }
 
 function validateEmail() {
