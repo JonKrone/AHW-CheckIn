@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "express": "^4.16.4",
+    "opn": "^5.4.0"
+  },
+  "scripts": {
+    "start": "node ./simple-server"
+  },
+  "name": "check-in-playground",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jonathan Krone <jonathankrone@gmail.com>",
+  "license": "MIT"
+}
