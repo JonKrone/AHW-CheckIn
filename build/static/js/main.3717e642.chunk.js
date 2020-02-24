@@ -246,8 +246,6 @@
         s.a.createElement(y, null),
         document.getElementById('check-in-app')
       )
-
-      console.log('rendering')
     },
   },
   [[11, 1, 2]],
