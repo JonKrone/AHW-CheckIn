@@ -7,7 +7,7 @@ module.exports = {
   mode: 'production',
   entry: {
     'bundle.js': glob
-      .sync('build/static/?(js|css)/*.?(js|css)')
+      .sync('build/static/?(js|css)/*.?(js|css)$')
       .map(f => path.resolve(__dirname, f)),
   },
   output: {
