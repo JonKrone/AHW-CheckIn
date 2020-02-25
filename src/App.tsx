@@ -7,11 +7,11 @@ import MetaForm, { MetaData } from './components/MetaForm'
 import SignInForm from './components/SignInForm'
 
 const App: React.FC<{}> = () => {
-  const [meta, setMeta] = useState<MetaData | null>(null)
-  // const [meta, setMeta] = useState<MetaData | null>({
-  //   teacher: 'Jon',
-  //   location: 'Bennys',
-  // })
+  // const [meta, setMeta] = useState<MetaData | null>(null)
+  const [meta, setMeta] = useState<MetaData | null>({
+    teacher: 'Jon',
+    location: 'Bennys',
+  })
 
   return (
     <>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import { fDb } from '../utils/firebase'
 import Waiver from './Waiver'
@@ -19,7 +20,6 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
   const handleSubmit = () => {
     if (isValid) {
       const now = Date.now()
-      // const [firstName, lastName] = parseName(name$.value)
       const studentRegistration = {
         firstName: 'first',
         lastName: 'last',
@@ -49,10 +49,45 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
     }
   }
 
+  const useDelay = (delay: number) => {
+    const [done, setDone] = useState(false)
+    setTimeout(() => {
+      setDone(true)
+    }, delay)
+    return done
+  }
+
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    if (show) {
+      setTimeout(() => setShow(false), 2000)
+    }
+  }, [show])
+
+  const MyComponent: React.FC<{ isVisible: boolean }> = ({ isVisible }) => (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          className="absolute z-5 vh-50 bg-gray"
+          style={{ width: '50vw' }}
+          key="thanks"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ yoyo: Infinity, duration: 1 }}
+        >
+          Thank you!
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+
   return (
     <div className="flex flex-column items-center w-100">
+      <button onClick={() => setShow(!show)}>Show</button>
       <div className="hide thank-you-tmp">
         <h3 className="thank-you-msg"></h3>
+        <MyComponent isVisible={show} />
       </div>
 
       <div className="email-box">
