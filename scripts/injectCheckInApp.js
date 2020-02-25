@@ -4,11 +4,10 @@
  */
 
 ;(function() {
-  const CDN_URI_BASE =
-    'https://cdn.jsdelivr.net/gh/JonKrone/ahw-check-in@latest/build'
+  const URI_BASE = 'https://github.com/JonKrone/ahw-check-in/blob/master/build'
 
   /** @param {string} extra */
-  const createURI = extra => `${CDN_URI_BASE}/${extra}`
+  const createURI = extra => `${URI_BASE}/${extra}`
 
   const fetchManifest = () =>
     fetch(createURI('asset-manifest.json')).then(d => d.json())
