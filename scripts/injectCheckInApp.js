@@ -3,13 +3,14 @@
  * It will then inject the AHW Check-in app into the app, pulling from CRA's manifest
  */
 
-const CDN_URI_BASE = 'https://cdn.jsdelivr.net/gh/JonKrone/ahw-check-in@latest'
+const CDN_URI_BASE =
+  'https://cdn.jsdelivr.net/gh/JonKrone/ahw-check-in@latest/build'
 
 /** @param {string} extra */
 const createURI = extra => `${CDN_URI_BASE}/${extra}`
 
 const fetchManifest = () =>
-  fetch(createURI('build/asset-manifest.json')).then(d => d.json())
+  fetch(createURI('asset-manifest.json')).then(d => d.json())
 
 /** @param {string} src */
 const addScript = src => {
