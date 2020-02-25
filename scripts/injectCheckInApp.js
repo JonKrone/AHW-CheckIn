@@ -4,7 +4,8 @@
  */
 
 ;(function() {
-  const URI_BASE = 'https://github.com/JonKrone/ahw-check-in/blob/master/build'
+  const URI_BASE =
+    'https://raw.githubusercontent.com/JonKrone/ahw-check-in/master/build'
 
   /** @param {string} extra */
   const createURI = extra => `${URI_BASE}/${extra}`

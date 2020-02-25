@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 
 import { fDb } from '../utils/firebase'
 import Waiver from './Waiver'
 import { MetaData } from './MetaForm'
+import ThankYou from './ThankYou'
 
 const emailRegex = /(?!.*\.\.)(^[^\.][^@\s]+@[^@\s]+\.[^@\s\.]+$)/
 
@@ -31,7 +31,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
         sentViaEmail: false,
       }
 
-      // add to firebase
+      // add to our firebase students collection
       fDb
         .collection('students')
         .doc(String(now))
@@ -41,7 +41,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
           e => console.log('failed to add student to fDb')
         )
 
-      // flashThankYou(firstName)
+      setShow(true)
 
       // reset form
       setEmail('')
@@ -49,45 +49,13 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
     }
   }
 
-  const useDelay = (delay: number) => {
-    const [done, setDone] = useState(false)
-    setTimeout(() => {
-      setDone(true)
-    }, delay)
-    return done
-  }
-
   const [show, setShow] = useState(false)
+  // Hide the ThankYou message after a couple seconds
   useEffect(() => {
     if (show) {
       setTimeout(() => setShow(false), 2000)
     }
   }, [show])
-
-  const ThankYou: React.FC<{ isVisible: boolean }> = ({ isVisible }) => (
-    <AnimatePresence>
-      {isVisible && (
-        <div className="absolute absolute--fill">
-          <div className="flex h-100 justify-center items-center">
-            <motion.div
-              className=""
-              style={{
-                backgroundColor: 'antiquewhite',
-                padding: '75px 125px',
-                boxShadow: 'antiquewhite 0px 0px 20px 10px',
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              // transition={{ yoyo: Infinity, duration: 1 }}
-            >
-              Thank you!
-            </motion.div>
-          </div>
-        </div>
-      )}
-    </AnimatePresence>
-  )
 
   return (
     <div className="flex flex-column items-center w-100">
@@ -123,7 +91,11 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
       </div>
 
       <div className="mt4">
-        <button disabled={isValid} className="submit-input">
+        <button
+          disabled={isValid}
+          className="submit-input"
+          onClick={handleSubmit}
+        >
           Register
         </button>
       </div>
