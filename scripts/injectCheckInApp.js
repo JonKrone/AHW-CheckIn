@@ -5,7 +5,7 @@
 
 ;(function() {
   const URI_BASE =
-    'https://raw.githubusercontent.com/JonKrone/ahw-check-in/master/build'
+    'https://cdn.jsdelivr.net/gh/JonKrone/ahw-check-in@latest/build'
 
   /** @param {string} extra */
   const createURI = extra => `${URI_BASE}/${extra}`
