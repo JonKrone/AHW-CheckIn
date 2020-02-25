@@ -64,20 +64,27 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
     }
   }, [show])
 
-  const MyComponent: React.FC<{ isVisible: boolean }> = ({ isVisible }) => (
+  const ThankYou: React.FC<{ isVisible: boolean }> = ({ isVisible }) => (
     <AnimatePresence>
       {isVisible && (
-        <motion.div
-          className="absolute z-5 vh-50 bg-gray"
-          style={{ width: '50vw' }}
-          key="thanks"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ yoyo: Infinity, duration: 1 }}
-        >
-          Thank you!
-        </motion.div>
+        <div className="absolute absolute--fill">
+          <div className="flex h-100 justify-center items-center">
+            <motion.div
+              className=""
+              style={{
+                backgroundColor: 'antiquewhite',
+                padding: '75px 125px',
+                boxShadow: 'antiquewhite 0px 0px 20px 10px',
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              // transition={{ yoyo: Infinity, duration: 1 }}
+            >
+              Thank you!
+            </motion.div>
+          </div>
+        </div>
       )}
     </AnimatePresence>
   )
@@ -87,7 +94,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
       <button onClick={() => setShow(!show)}>Show</button>
       <div className="hide thank-you-tmp">
         <h3 className="thank-you-msg"></h3>
-        <MyComponent isVisible={show} />
+        <ThankYou isVisible={show} />
       </div>
 
       <div className="email-box">
@@ -103,25 +110,24 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
         </div>
       </div>
 
-      <div className="waiver-box">
-        <div className="errorable-input">
-          <label className="errorable">
-            <input
-              type="checkbox"
-              className="waiver-input"
-              checked={waiver}
-              onChange={e => setWaiver(e.target.checked)}
-            />
-            I Promise I won't sue if I hurt myself
-          </label>
-        </div>
+      <div className="mt4">
+        <label>
+          <input
+            type="checkbox"
+            className="waiver-input"
+            checked={waiver}
+            onChange={e => setWaiver(e.target.checked)}
+          />
+          I Promise I won't sue if I hurt myself
+        </label>
       </div>
 
-      <div className="submit-box">
+      <div className="mt4">
         <button disabled={isValid} className="submit-input">
           Register
         </button>
       </div>
+
       <Waiver />
     </div>
   )

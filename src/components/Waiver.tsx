@@ -2,7 +2,7 @@ import React from 'react'
 
 const Waiver: React.FC<{}> = () => (
   <textarea
-    className="vh-25 w-100 lh-title bg-light-gray ba b--light-gray br1 pa2"
+    className="vh-25 w-100 mt5 lh-title bg-light-gray ba b--light-gray br1 pa2"
     style={{ resize: 'none' }}
     readOnly
     value={`YOGA TEACHER AND LOCATION LIABILITY STUDENT WAIVER AGREEMENT
