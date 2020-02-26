@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { fDb } from '../utils/firebase'
 import Waiver from './Waiver'
@@ -12,6 +12,7 @@ interface SignInFormProps {
 }
 
 const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
+  const emailRef = useRef<HTMLInputElement>(null)
   const [email, setEmail] = useState<string>('')
   const [waiver, setWaiver] = useState<boolean>(true)
   const [showThanks, setShowThanks] = useState(false)
@@ -40,20 +41,21 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
       }
 
       // add to our firebase students collection
-      fDb
-        .collection('students')
-        .doc(String(now))
-        .set(studentRegistration)
-        .then(
-          d => console.log('saved student to fDb'),
-          e => console.log('failed to add student to fDb')
-        )
+      // fDb
+      //   .collection('students')
+      //   .doc(String(now))
+      //   .set(studentRegistration)
+      //   .then(
+      //     d => console.log('saved student to fDb'),
+      //     e => console.log('failed to add student to fDb')
+      //   )
 
       setShowThanks(true)
 
       // reset form
       setEmail('')
       setWaiver(true)
+      emailRef?.current?.focus()
     }
   }
 
@@ -63,11 +65,13 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
 
       <input
         className="lh-solid bg-light-gray ba b--light-gray br2 pa3"
-        style={{ width: '22rem' }}
+        style={{ width: '22rem', outlineColor: 'rgb(224, 65, 41)' }}
+        ref={emailRef}
         type="email"
-        autoComplete="off"
         name="Email"
         placeholder="Email"
+        autoComplete="off"
+        autoFocus
         value={email}
         onChange={e => setEmail(e.target.value)}
       />
@@ -75,8 +79,8 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
       <div className="mt4">
         <input
           id="waiver"
-          className="mr2"
-          style={{ transform: 'scale(1.4)' }}
+          className="mr2 pointer"
+          style={{ transform: 'scale(1.4)', outlineColor: 'rgb(224, 65, 41)' }}
           type="checkbox"
           checked={waiver}
           onChange={e => setWaiver(e.target.checked)}
@@ -86,8 +90,12 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
 
       <div className="mt4">
         <button
-          className="lh-solid bg-light-gray ba b--light-gray br2 pa3 pointer hover-bg-moon-gray"
-          disabled={isValid}
+          className="lh-solid ba white b--light-gray br2 pa3 hover-bg-moon-gray"
+          style={{
+            backgroundColor: 'rgb(224, 65, 41)',
+            outlineColor: 'rgb(224, 65, 41)',
+          }}
+          disabled={!isValid}
           onClick={handleSubmit}
         >
           Register
