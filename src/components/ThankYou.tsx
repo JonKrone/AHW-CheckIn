@@ -11,7 +11,7 @@ const ThankYou: React.FC<ThankYouProps> = ({ isVisible }) => (
       <div className="absolute absolute--fill">
         <div className="flex h-100 justify-center items-center">
           <motion.div
-            className=""
+            className="br4"
             style={{
               backgroundColor: 'antiquewhite',
               padding: '75px 125px',
@@ -21,7 +21,7 @@ const ThankYou: React.FC<ThankYouProps> = ({ isVisible }) => (
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            Thank you!
+            <h3>Thank you!</h3>
           </motion.div>
         </div>
       </div>

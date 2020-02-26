@@ -5,7 +5,7 @@ import Waiver from './Waiver'
 import { MetaData } from './MetaForm'
 import ThankYou from './ThankYou'
 
-const emailRegex = /(?!.*\.\.)(^[^\.][^@\s]+@[^@\s]+\.[^@\s\.]+$)/
+const emailRegex = /(?!.*\.\.)(^[^.][^@\s]+@[^@\s]+\.[^@\s.]+$)/
 
 interface SignInFormProps {
   meta: MetaData
@@ -21,8 +21,8 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
     if (isValid) {
       const now = Date.now()
       const studentRegistration = {
-        firstName: 'first',
-        lastName: 'last',
+        firstName: null,
+        lastName: null,
         teacher: meta.teacher,
         class: meta.location,
         email,
@@ -41,7 +41,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
           e => console.log('failed to add student to fDb')
         )
 
-      setShow(true)
+      setShowThanks(true)
 
       // reset form
       setEmail('')
@@ -49,21 +49,18 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
     }
   }
 
-  const [show, setShow] = useState(false)
+  const [showThanks, setShowThanks] = useState(false)
   // Hide the ThankYou message after a couple seconds
   useEffect(() => {
-    if (show) {
-      setTimeout(() => setShow(false), 2000)
+    if (showThanks) {
+      setTimeout(() => setShowThanks(false), 1500)
     }
-  }, [show])
+  }, [showThanks])
 
   return (
     <div className="flex flex-column items-center w-100">
-      <button onClick={() => setShow(!show)}>Show</button>
-      <div className="hide thank-you-tmp">
-        <h3 className="thank-you-msg"></h3>
-        <ThankYou isVisible={show} />
-      </div>
+      <button onClick={() => setShowThanks(!showThanks)}>Show</button>
+      <ThankYou isVisible={showThanks} />
 
       <div className="email-box">
         <div className="errorable-input">
@@ -82,7 +79,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
         <label>
           <input
             type="checkbox"
-            className="waiver-input"
+            className="mr2"
             checked={waiver}
             onChange={e => setWaiver(e.target.checked)}
           />

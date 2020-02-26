@@ -4,14 +4,32 @@
  */
 
 ;(function() {
-  const URI_BASE =
-    'https://cdn.jsdelivr.net/gh/JonKrone/ahw-check-in@latest/build'
+  const CDN_URI_BASE = 'https://cdn.jsdelivr.net/gh/JonKrone/ahw-check-in'
 
-  /** @param {string} extra */
-  const createURI = extra => `${URI_BASE}/${extra}`
+  /**
+   * @param {string} extra
+   * @param {string} sha
+   */
+  const createURI = (sha, extra) => `${CDN_URI_BASE}@${sha}/build/${extra}`
 
-  const fetchManifest = () =>
-    fetch(createURI('asset-manifest.json')).then(d => d.json())
+  // Get the ref of the master branch for cache-busting
+  const fetchMasterSHA = () =>
+    fetch('https://api.github.com/repos/jonkrone/ahw-check-in/git/refs')
+      .then(d => d.json())
+      .then(refs => {
+        const master = refs.find(({ ref }) => /refs\/heads\/master/.test(ref))
+        if (master) {
+          return master.object.sha
+        }
+
+        throw new Error(
+          'Was not able to fetch SHA of ahw-check-in master branch'
+        )
+      })
+
+  /** @param {any} sha */
+  const fetchManifest = sha =>
+    fetch(createURI(sha, 'asset-manifest.json')).then(d => d.json())
 
   /** @param {string} src */
   const addScript = src => {
@@ -28,12 +46,18 @@
     document.head.appendChild(link)
   }
 
-  // data is of shape { files: Record<string, string>, entrypoints: string[] }
-  fetchManifest().then(data => {
-    /** @param {string} entry */
-    data.entrypoints.map(createURI).forEach(entry => {
-      if (/.css$/.test(entry)) addLink(entry)
-      else addScript(entry)
-    })
+  fetchMasterSHA().then(sha => {
+    return (
+      fetchManifest(sha)
+        // data is of shape { files: Record<string, string>, entrypoints: string[] }
+        .then(data => {
+          data.entrypoints
+            .map(entry => createURI(sha, entry))
+            .forEach(entry => {
+              if (/.css$/.test(entry)) addLink(entry)
+              else addScript(entry)
+            })
+        })
+    )
   })
 })()
