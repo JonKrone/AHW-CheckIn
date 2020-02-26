@@ -23,7 +23,7 @@ const MetaForm: React.FC<MetaProps> = ({ onSubmit }) => {
 
   return (
     <div className="flex w-100 vh-50 justify-center items-center">
-      <div className="flex flex-column w-20 items-center">
+      <div className="flex flex-column w-25 items-center">
         <div className="flex w-100 justify-between pb4">
           <label htmlFor="teacher">Teacher</label>
           <select
@@ -68,7 +68,7 @@ const MetaForm: React.FC<MetaProps> = ({ onSubmit }) => {
         </div>
 
         <button
-          className="w-50"
+          className="w-30 pv2 lh-solid bg-light-gray ba b--light-gray br2 pointer hover-bg-moon-gray"
           disabled={!isValid}
           onClick={_ =>
             onSubmit({ location: locationName!, teacher: teacher! })

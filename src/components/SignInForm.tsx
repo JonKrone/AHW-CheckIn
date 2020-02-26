@@ -61,22 +61,23 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
     <div className="flex flex-column items-center w-100">
       <ThankYou isVisible={showThanks} />
 
-      <div className="email-box">
-        <input
-          className="bg-light-gray ba b--light-gray br1 pa1"
-          type="text"
-          name="Email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </div>
+      <input
+        className="lh-solid bg-light-gray ba b--light-gray br2 pa3"
+        style={{ width: '22rem' }}
+        type="email"
+        autoComplete="off"
+        name="Email"
+        placeholder="Email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+      />
 
       <div className="mt4">
         <input
           id="waiver"
-          type="checkbox"
           className="mr2"
+          style={{ transform: 'scale(1.4)' }}
+          type="checkbox"
           checked={waiver}
           onChange={e => setWaiver(e.target.checked)}
         />
@@ -85,8 +86,8 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
 
       <div className="mt4">
         <button
+          className="lh-solid bg-light-gray ba b--light-gray br2 pa3 pointer hover-bg-moon-gray"
           disabled={isValid}
-          className="submit-input"
           onClick={handleSubmit}
         >
           Register
