@@ -15,7 +15,7 @@ const Waiver: React.FC<{}> = () => (
       If I am pregnant or become pregnant or am post­natal, my signature verifies that I am participating in yoga classes with my doctor’s full approval. I realize that I am participating in yoga classes at my own risk.
       The Student Waiver Agreement shall be construed broadly to provide a release and waiver to the maximum extent permissible under applicable law. I acknowledge that this Student Waiver Agreement form will be used by the persons or entities being released in the yoga classes and that it will govern my actions and responsibilities in said classes.
       I hereby certify that I have read this document; and, I understand its content. I am aware that this is a release of liability as well as a contract and I sign it of my own free will.`}
-  ></textarea>
+  />
 )
 
 export default Waiver

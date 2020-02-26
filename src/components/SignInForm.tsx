@@ -14,8 +14,16 @@ interface SignInFormProps {
 const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
   const [email, setEmail] = useState<string>('')
   const [waiver, setWaiver] = useState<boolean>(true)
+  const [showThanks, setShowThanks] = useState(false)
 
   const isValid = emailRegex.test(email) && waiver
+
+  // Hide the ThankYou message after a couple seconds
+  useEffect(() => {
+    if (showThanks) {
+      setTimeout(() => setShowThanks(false), 1500)
+    }
+  }, [showThanks])
 
   const handleSubmit = () => {
     if (isValid) {
@@ -49,42 +57,30 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
     }
   }
 
-  const [showThanks, setShowThanks] = useState(false)
-  // Hide the ThankYou message after a couple seconds
-  useEffect(() => {
-    if (showThanks) {
-      setTimeout(() => setShowThanks(false), 1500)
-    }
-  }, [showThanks])
-
   return (
     <div className="flex flex-column items-center w-100">
-      <button onClick={() => setShowThanks(!showThanks)}>Show</button>
       <ThankYou isVisible={showThanks} />
 
       <div className="email-box">
-        <div className="errorable-input">
-          <input
-            className="email-input errorable"
-            type="text"
-            name="Email"
-            placeholder="Email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </div>
+        <input
+          className="bg-light-gray ba b--light-gray br1 pa1"
+          type="text"
+          name="Email"
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
       </div>
 
       <div className="mt4">
-        <label>
-          <input
-            type="checkbox"
-            className="mr2"
-            checked={waiver}
-            onChange={e => setWaiver(e.target.checked)}
-          />
-          I Promise I won't sue if I hurt myself
-        </label>
+        <input
+          id="waiver"
+          type="checkbox"
+          className="mr2"
+          checked={waiver}
+          onChange={e => setWaiver(e.target.checked)}
+        />
+        <label htmlFor="waiver">I Promise I won't sue if I hurt myself</label>
       </div>
 
       <div className="mt4">
