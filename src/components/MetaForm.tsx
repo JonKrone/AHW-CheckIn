@@ -68,7 +68,11 @@ const MetaForm: React.FC<MetaProps> = ({ onSubmit }) => {
         </div>
 
         <button
-          className="w-30 pv2 lh-solid bg-light-gray ba b--light-gray br2 pointer hover-bg-moon-gray"
+          className="w-30 pv2 lh-solid ba b--light-gray br2 pointer white"
+          style={{
+            backgroundColor: 'rgb(224, 65, 41)',
+            outlineColor: 'rgb(224, 65, 41)',
+          }}
           disabled={!isValid}
           onClick={_ =>
             onSubmit({ location: locationName!, teacher: teacher! })

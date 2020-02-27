@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-import { fDb } from '../utils/firebase'
 import Waiver from './Waiver'
 import { MetaData } from './MetaForm'
 import ThankYou from './ThankYou'
@@ -14,8 +13,9 @@ interface SignInFormProps {
 const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
   const emailRef = useRef<HTMLInputElement>(null)
   const [email, setEmail] = useState<string>('')
-  const [waiver, setWaiver] = useState<boolean>(true)
+  const [waiver, setWaiver] = useState<boolean>(false)
   const [showThanks, setShowThanks] = useState(false)
+  const [needsEmail, setNeedsEmail] = useState(false)
 
   const isValid = emailRegex.test(email) && waiver
 
@@ -25,6 +25,12 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
       setTimeout(() => setShowThanks(false), 1500)
     }
   }, [showThanks])
+
+  useEffect(() => {
+    if (needsEmail) {
+      emailRegex.test(email) && setNeedsEmail(false)
+    }
+  }, [needsEmail, email])
 
   const handleSubmit = () => {
     if (isValid) {
@@ -54,15 +60,14 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
 
       // reset form
       setEmail('')
-      setWaiver(true)
-      emailRef?.current?.focus()
+      setWaiver(false)
+      emailRef.current?.focus()
     }
   }
 
   return (
     <div className="flex flex-column items-center w-100">
       <ThankYou isVisible={showThanks} />
-
       <input
         className="lh-solid bg-light-gray ba b--light-gray br2 pa3"
         style={{ width: '22rem', outlineColor: 'rgb(224, 65, 41)' }}
@@ -74,9 +79,21 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
         autoFocus
         value={email}
         onChange={e => setEmail(e.target.value)}
+        onBlur={_ => !emailRegex.test(email) && setNeedsEmail(true)}
       />
+      {needsEmail && (
+        <span
+          className="absolute"
+          style={{
+            top: emailRef.current!.offsetTop + emailRef.current!.offsetHeight,
+            color: 'rgb(224, 65, 41)',
+          }}
+        >
+          Please make sure your email is correct
+        </span>
+      )}
 
-      <div className="mt4">
+      <div className="mt4 pa2">
         <input
           id="waiver"
           className="mr2 pointer"
@@ -84,13 +101,15 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
           type="checkbox"
           checked={waiver}
           onChange={e => setWaiver(e.target.checked)}
+          onKeyDown={e => e.which === 13 && setWaiver(!waiver)}
         />
-        <label htmlFor="waiver">I Promise I won't sue if I hurt myself</label>
+        <label htmlFor="waiver" className="pointer">
+          I Promise I won't sue if I hurt myself
+        </label>
       </div>
-
       <div className="mt4">
         <button
-          className="lh-solid ba white b--light-gray br2 pa3 hover-bg-moon-gray"
+          className="lh-solid ba white b--light-gray br2 pa3"
           style={{
             backgroundColor: 'rgb(224, 65, 41)',
             outlineColor: 'rgb(224, 65, 41)',
@@ -101,7 +120,6 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
           Register
         </button>
       </div>
-
       <Waiver />
     </div>
   )
