@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Waiver from './Waiver'
 import { MetaData } from './MetaForm'
 import ThankYou from './ThankYou'
+import { fDb } from './../utils/firebase'
 
 const emailRegex = /(?!.*\.\.)(^[^.][^@\s]+@[^@\s]+\.[^@\s.]+$)/
 
@@ -47,14 +48,14 @@ const SignInForm: React.FC<SignInFormProps> = ({ meta }) => {
       }
 
       // add to our firebase students collection
-      // fDb
-      //   .collection('students')
-      //   .doc(String(now))
-      //   .set(studentRegistration)
-      //   .then(
-      //     d => console.log('saved student to fDb'),
-      //     e => console.log('failed to add student to fDb')
-      //   )
+      fDb
+        .collection('students')
+        .doc(String(now))
+        .set(studentRegistration)
+        .then(
+          d => console.log('saved student to fDb'),
+          e => console.log('failed to add student to fDb')
+        )
 
       setShowThanks(true)
 
