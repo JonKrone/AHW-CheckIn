@@ -1,10 +1,17 @@
 export default {
-  teachers: ['Cassie', 'McKenzie', 'Joe', 'Lauren'],
+  teachers: ['Annie', 'Cassie', 'Joe', 'Lauren', 'McKenzie'],
   classes: [
-    'Utepils',
-    'La Dona',
+    'Bent Brewstillery',
     'Dangerous Man',
+    'La Dona',
+    'Minneapolis Cider',
     'Number 12 Cidery',
+    'OMNI',
+    'Parallel',
+    'Urban Growler',
+    'Utepils',
+    'Wicked Wart',
+    'Winehaven',
     'Workshop',
   ],
 }
