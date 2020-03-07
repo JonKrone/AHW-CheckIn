@@ -21,7 +21,7 @@ const ThankYou: React.FC<ThankYouProps> = ({ isVisible }) => (
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <h3>Thank you!</h3>
+            <h3>Have a great class!</h3>
           </motion.div>
         </div>
       </div>
